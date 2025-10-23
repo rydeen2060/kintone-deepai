@@ -106,4 +106,62 @@ def deepai():
 
 ※これはデモ環境です。本番環境では実際のAI APIと連携します。"""
 
-        summary = f"
+        summary = f"""【DeepAI分析レポート - デモ環境】
+
+■ 基本情報
+- アカウント: {account_name}
+- ビジネスID: {business_id}
+- 分析日時: {current_date} {current_time}
+- データソース: Flask Demo Server
+
+■ 総合評価
+当該アカウントは定期的にアクティブであり、データ品質も高水準を維持しています。
+機械学習モデルによる予測では、今後も安定的な成長が期待できます。
+
+■ 主要指標
+- アクティビティスコア: 85/100
+- データ品質: 良好
+- 成長トレンド: 上昇傾向
+- リスク評価: 低
+
+■ 推奨アクション
+1. 現在の運用方針を継続
+2. 月次でのパフォーマンスレビュー実施
+3. 新規施策の段階的導入を検討
+
+■ 次回分析予定
+次回の詳細分析は30日後を推奨します。
+継続的なモニタリングにより、より精度の高い予測が可能になります。
+
+■ 技術情報
+- 実行環境: Flask (Python)
+- リクエストID: {record_id}
+- 処理時刻: {current_date} {current_time}
+
+※本分析はデモ環境での自動生成です。
+※本番環境では実際のAI APIと連携して高度な分析を提供します。"""
+
+        return jsonify({
+            'success': True,
+            'feedback': feedback,
+            'summary': summary,
+            'timestamp': datetime.now().isoformat(),
+            'metadata': {
+                'recordId': record_id,
+                'appId': app_id,
+                'processedAt': datetime.now().isoformat(),
+                'environment': 'demo'
+            }
+        })
+
+    except Exception as e:
+        print(f'✗ エラー発生: {str(e)}')
+        return jsonify({
+            'success': False,
+            'error': f'サーバーエラー: {str(e)}'
+        }), 500
+
+if __name__ == '__main__':
+    print('\nサーバーを起動しています...')
+    print('✓ http://localhost:5000 でアクセスできます\n')
+    app.run(host='0.0.0.0', port=5000, debug=True)
